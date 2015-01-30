@@ -1,10 +1,11 @@
 require 'odnoklassniki/error'
-require 'odnoklassniki/utils'
 require 'odnoklassniki/version'
+
+require 'multi_json'
+require 'digest/md5'
 
 module Odnoklassniki
   class Client
-    include Odnoklassniki::Utils
     attr_accessor :access_token, :refresh_token,
                   :application_id, :application_key, :application_secret
     attr_writer :user_agent
@@ -33,10 +34,11 @@ module Odnoklassniki
     # @return [Hash]
     def credentials
       {
-        consumer_key: consumer_key,
-        consumer_secret: consumer_secret,
         token: access_token,
-        token_secret: access_token_secret,
+        refresh_token: refresh_token,
+        client_id: appication_id,
+        client_secret: application_secret,
+        application_key: application_key
       }
     end
 
