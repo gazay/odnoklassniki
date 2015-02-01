@@ -17,6 +17,5 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ['lib']
-  s.add_dependency 'httparty'
-  s.add_dependency 'multi_json'
+  s.add_dependency 'weary'
 end
