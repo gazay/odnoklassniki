@@ -12,10 +12,12 @@ module Odnoklassniki
     end
 
     def get(method, params={})
+      method, params = fallback(method) if method.is_a?(Hash)
       request.get(method_path(method), params)
     end
 
     def post(method, params={})
+      method, params = fallback(method) if method.is_a?(Hash)
       request.post(method_path(method), params)
     end
 
@@ -27,6 +29,10 @@ module Odnoklassniki
     end
 
     private
+
+    def fallback(params)
+      [params.delete(:method), params]
+    end
 
     def method_path(method)
       if method.start_with?('api')
