@@ -6,6 +6,12 @@ module Odnoklassniki
 
     include Odnoklassniki::Connection
 
+    def initialize(credentials)
+      @access_token    = credentials[:access_token]
+      @client_secret   = credentials[:client_secret]
+      @application_key = credentials[:application_key]
+    end
+
     # Perform a get request and return the raw response
     def get_response(path, params = {})
       connection.get do |req|
