@@ -20,9 +20,9 @@ module Odnoklassniki
     end
 
     def refresh_token!
+      @refreshed = true
       data = request.post('/oauth/token.do', refresh_credentials)
       @request = nil
-      @refreshed = true
       @access_token = data['access_token']
     end
 
