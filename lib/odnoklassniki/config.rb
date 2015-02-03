@@ -22,9 +22,9 @@ module Odnoklassniki
 
     def credentials
       {
-        :application_key => application_key,
-        :client_secret => consumer_secret,
-        :access_token => access_token
+        application_key: application_key,
+        client_secret: consumer_secret,
+        access_token: access_token
       }
     end
 

@@ -1,36 +1,29 @@
-require 'digest/md5'
+require 'odnoklassniki/user'
+require 'odnoklassniki/request'
+require 'odnoklassniki/connection'
+# require 'odnoklassniki/post'
+require 'odnoklassniki/helpers'
 
 module Odnoklassniki
   class Client
-    OAUTH_PARAM_NAMES = [:access_token,
-                         :refresh_token,
-                         :client_id,
-                         :client_secret,
-                         :application_key].freeze
 
-    domain 'http://api.odnoklassniki.ru/api'
+    include Odnoklassniki::User
+    # include Odnoklassniki::Post
+    include Odnoklassniki::Helper
 
-    user_agent "Odnoklassniki API Client (Ruby)/#{Odnoklassniki::VERSION} (+http://github.com/gazay/odnoklassniki)"
-
-    get :current_user, '/users/getCurrentUser' do |r|
-      r.required :access_token, :application_key
-      r.optional :fields
-    end
-
-    def initialize(params = {})
-      @defaults = {}
-      OAUTH_PARAM_NAMES.each do |param|
-        @defaults[param] = hash_fetch(params, param)
+    def initialize(attrs= {})
+      attrs = Odnoklassniki.options.merge(attrs)
+      Config::VALID_OPTIONS_KEYS.each do |key|
+        instance_variable_set("@#{key}".to_sym, attrs[key])
       end
     end
 
-    private
-
-    def refresh_token!
-    end
-
-    def hash_fetch(hash, key)
-      hash[key] || hash[key.to_s]
+    def credentials
+      {
+        application_key: @application_key,
+        client_secret: @client_secret,
+        access_token: @access_token
+      }
     end
 
   end
