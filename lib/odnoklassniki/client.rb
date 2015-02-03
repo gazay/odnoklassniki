@@ -18,12 +18,26 @@ module Odnoklassniki
       end
     end
 
+    def get(path, params={})
+      request.get(path, params)
+    end
+
+    def post(path, params={})
+      request.post(path, params)
+    end
+
     def credentials
       {
         application_key: @application_key,
         client_secret: @client_secret,
         access_token: @access_token
       }
+    end
+
+    private
+
+    def request
+      @request ||= Request.new
     end
 
   end
