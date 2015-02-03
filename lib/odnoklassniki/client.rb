@@ -12,6 +12,11 @@ module Odnoklassniki
 
     user_agent "Odnoklassniki API Client (Ruby)/#{Odnoklassniki::VERSION} (+http://github.com/gazay/odnoklassniki)"
 
+    get :current_user, 'users.getCurrentUser' do |r|
+      r.required :token
+      r.optional :fields
+    end
+
     def initialize(oauth_params = {})
       @defaults = {}
       OAUTH_PARAM_NAMES.each do |param|
