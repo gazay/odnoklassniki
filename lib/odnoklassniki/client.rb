@@ -11,12 +11,12 @@ module Odnoklassniki
       @refreshed = false
     end
 
-    def get(path, params={})
-      request.get(path, params)
+    def get(method, params={})
+      request.get(method_path(method), params)
     end
 
-    def post(path, params={})
-      request.post(path, params)
+    def post(method, params={})
+      request.post(method_path(method), params)
     end
 
     def refresh_token!
@@ -27,6 +27,18 @@ module Odnoklassniki
     end
 
     private
+
+    def method_path(method)
+      if method.start_with?('api')
+        "/#{method}"
+      elsif method.start_with?('/api')
+        method
+      elsif method.start_with?('/')
+        "/api#{method}"
+      else
+        "/api/#{method}"
+      end.gsub('.', '/')
+    end
 
     def refresh_credentials
       {
