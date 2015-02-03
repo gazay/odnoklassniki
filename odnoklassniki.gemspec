@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ['lib']
-  s.add_dependency 'weary'
-  s.add_development_dependency 'pry'
+  s.add_dependency "faraday"
+  s.add_dependency "multi_json"
 end

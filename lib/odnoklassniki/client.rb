@@ -1,8 +1,7 @@
-require 'weary'
 require 'digest/md5'
 
 module Odnoklassniki
-  class Client < Weary::Client
+  class Client
     OAUTH_PARAM_NAMES = [:access_token,
                          :refresh_token,
                          :client_id,
