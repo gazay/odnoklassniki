@@ -1,15 +1,7 @@
-require 'odnoklassniki/user'
 require 'odnoklassniki/request'
-require 'odnoklassniki/connection'
-# require 'odnoklassniki/post'
-require 'odnoklassniki/helpers'
 
 module Odnoklassniki
   class Client
-
-    include Odnoklassniki::User
-    # include Odnoklassniki::Post
-    include Odnoklassniki::Helper
 
     def initialize(attrs= {})
       attrs = Odnoklassniki.options.merge(attrs)

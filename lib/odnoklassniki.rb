@@ -12,5 +12,3 @@ module Odnoklassniki
     end
   end
 end
-
-DNO = Odnoklassniki
