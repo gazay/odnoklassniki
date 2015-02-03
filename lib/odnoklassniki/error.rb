@@ -151,8 +151,6 @@ module Odnoklassniki
     end
 
     class << self
-      include Odnoklassniki::Utils
-
       # Create a new error from an HTTP response
       #
       # @param response [HTTP::Response]
