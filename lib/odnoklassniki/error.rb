@@ -4,7 +4,7 @@ module Odnoklassniki
     # @return [Integer]
     attr_reader :code
 
-    # Raised when Odnoklassniki returns a 4xx HTTP status code
+    # Raised when Odnoklassniki returns a 2xx HTTP status code
     ClientError = Class.new(self)
 
     # Raised when Odnoklassniki returns the HTTP status code 400
@@ -44,6 +44,7 @@ module Odnoklassniki
     GatewayTimeout = Class.new(ServerError)
 
     ERRORS = {
+      200 => Odnoklassniki::Error::ClientError,
       400 => Odnoklassniki::Error::BadRequest,
       401 => Odnoklassniki::Error::Unauthorized,
       403 => Odnoklassniki::Error::Forbidden,
@@ -170,7 +171,6 @@ module Odnoklassniki
     # Initializes a new Error object
     #
     # @param message [Exception, String]
-    # @param rate_limit [Hash]
     # @param code [Integer]
     # @return [Odnoklassniki::Error]
     def initialize(message = '', code = nil)
