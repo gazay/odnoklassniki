@@ -21,7 +21,6 @@ module Odnoklassniki
       Faraday.new(default_options.merge(options)) do |conn|
         conn.request :multipart
         conn.request :url_encoded
-        conn.response :json, :content_type => /\bjson$/
         conn.adapter client
       end
     end

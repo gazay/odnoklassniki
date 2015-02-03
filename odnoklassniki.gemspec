@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.add_dependency "faraday"
   s.add_dependency "faraday_middleware"
-  s.add_dependency "json"
+  s.add_dependency "multi_json"
   s.add_development_dependency 'pry'
   s.add_development_dependency 'byebug'
   s.add_development_dependency 'pry-byebug'

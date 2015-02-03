@@ -48,10 +48,26 @@ module Odnoklassniki
     private
 
     def respond(response)
-      if [201, 200].include?(response.status)
-        response.body
-      else
-        raise StandardError.new response.inspect
+      parsed_response = \
+        begin
+          MultiJson.load(response.body)
+        rescue MultiJson::DecodeError
+          #Есть случаи отдачи кривого JSON от одноклассников
+          gsubed = response.body.
+                     gsub(/[^"]}/, '"}').
+                     gsub(/([^"}]),"([^}])/, '\1","\2')
+          MultiJson.load(gsubed_response)
+        end
+      check_response!(parsed_response)
+
+      parsed_response
+    end
+
+    def check_response!(response)
+      if response.is_a? Hash
+        if response['error_code']
+          raise StandardError.new json_data.inspect
+        end
       end
     end
 
