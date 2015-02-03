@@ -66,7 +66,7 @@ module Odnoklassniki
     def check_response!(response)
       if response.is_a? Hash
         if response['error_code']
-          raise StandardError.new json_data.inspect
+          raise StandardError.new response.inspect
         end
       end
     end
