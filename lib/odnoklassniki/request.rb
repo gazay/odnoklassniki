@@ -50,10 +50,10 @@ module Odnoklassniki
     def respond(response)
       parsed_body = \
         begin
-          MultiJson.load(body)
+          MultiJson.load(response.body)
         rescue MultiJson::DecodeError
           #Есть случаи отдачи кривого JSON от одноклассников
-          gsubed = body.
+          gsubed = response.body.
                      gsub(/[^"]}/, '"}').
                      gsub(/([^"}]),"([^}])/, '\1","\2')
           MultiJson.load(gsubed)
