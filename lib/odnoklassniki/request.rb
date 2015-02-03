@@ -32,14 +32,14 @@ module Odnoklassniki
 
     # Performs a get request
     def get(path, params={})
-      respond get_response(path, params)
+      respond get_response(path, signed(params))
     end
 
     # Performs post request
     def post(path, params={})
       response = connection.post do |req|
         req.url path
-        req.body = params unless params.empty?
+        req.body = signed(params) unless params.empty?
       end
       #Check for errors and encapsulate
       respond(response)
@@ -49,13 +49,22 @@ module Odnoklassniki
 
     def respond(response)
       if [201, 200].include?(response.status)
-        response.body['response']
+        response.body
       else
-        # surface the meta alongside response
-        res = response.body['meta'] || {}
-        res.merge! response.body['response'] if response.body['response'].is_a?(Hash)
-        res
+        raise StandardError.new response.inspect
       end
+    end
+
+    def signed(params)
+      params = params.merge(application_key: @application_key)
+      params.merge(sig: signature(params), access_token: @access_token)
+    end
+
+    def signature(params)
+      sorted_concatenated_params =
+        Hash[params.sort].map { |k, v| "#{k}=#{v}" }.join
+      secret_part = Digest::MD5.hexdigest("#{@access_token}#{@client_secret}")
+      Digest::MD5.hexdigest("#{sorted_concatenated_params}#{secret_part}")
     end
 
   end
