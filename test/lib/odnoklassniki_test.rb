@@ -26,10 +26,4 @@ class TestOdnoklassniki < Minitest::Test
     assert_equal Odnoklassniki.options, @options
   end
 
-  def test_credentials
-    creds = @options.clone
-    creds.delete(:client_id)
-    assert_equal Odnoklassniki.credentials, creds
-  end
-
 end
