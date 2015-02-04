@@ -1,4 +1,4 @@
-require 'odnoklassniki/request'
+require_relative 'request'
 
 module Odnoklassniki
   class Client

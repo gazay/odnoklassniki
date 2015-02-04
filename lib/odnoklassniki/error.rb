@@ -1,3 +1,4 @@
+# Taken and adopted from https://github.com/sferik/twitter gem
 module Odnoklassniki
   # Custom error class for rescuing from all Odnoklassniki errors
   class Error < StandardError

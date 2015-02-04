@@ -1,4 +1,4 @@
-require 'odnoklassniki/connection'
+require_relative 'connection'
 require 'multi_json'
 
 module Odnoklassniki
