@@ -75,7 +75,7 @@ client.get('friends.get')
 client.get('friends/get')
 client.get('api/friends/get')
 client.get('/api/friends/get')
-# All get requests above identical
+# NOTE: All GET requests above are identical!
 
 client.post('mediatopic.post', type: 'USER_STATUS', attachment: attachment)
 ```
@@ -83,7 +83,7 @@ client.post('mediatopic.post', type: 'USER_STATUS', attachment: attachment)
 ### Error Handling
 
 Unfortunately, most errors from Odnoklassniki API are returned within a _success_ response (200 HTTP status code).
-So, there is a wrapper that in this gem:
+So, there is a wrapper just for that in this gem:
 
 ```ruby
 begin
@@ -93,9 +93,9 @@ rescue Odnoklassniki::Error::ClientError => e
 end
 ```
 
-Also there is a bunch of client/server error classes whos structure was gratefully copied and adopted from
+Also there is a bunch of client/server error classes whose structure was gratefully copied and adopted from
 [@sferik](https://github.com/sferik)'s [twitter](https://github.com/sferik/twitter) gem.
-They can be useful when Odnoklassniki API wasn't reached at all or when some other issue occured.
+They can be useful in case when Odnoklassniki API wasn't reached at all or when some other issue has occured.
 
 ## TODO
 
