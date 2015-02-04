@@ -1,5 +1,5 @@
 # odnoklassniki
-[![Build Status](https://secure.travis-ci.org/gazay/odnoklassniki)](http://travis-ci.org/gazay/odnoklassniki) [![CodeClimate](https://codeclimate.com/github/gazay/odnoklassniki)](https://codeclimate.com/github/gazay/odnoklassniki)
+[![Build Status](https://travis-ci.org/gazay/odnoklassniki.svg)](http://travis-ci.org/gazay/odnoklassniki) [![CodeClimate](https://d3s6mut3hikguw.cloudfront.net/github/gazay/odnoklassniki/badges/gpa.svg)](https://codeclimate.com/github/gazay/odnoklassniki)
 
 Ruby wrapper for Odnoklassniki API
 
