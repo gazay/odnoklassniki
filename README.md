@@ -80,7 +80,8 @@ end
 ```
 
 Also there are bunch of client/server error classes which structure was gratefully copied and adopted from
-@sferik's twitter gem. They can be useful when Odnoklassniki API wasn't reached or when some other issue occured.
+[@sferik](https://github.com/sferik)'s [twitter](https://github.com/sferik/twitter) gem.
+They can be useful when Odnoklassniki API wasn't reached or when some other issue occured.
 
 ## TODO
 
