@@ -1,4 +1,6 @@
 # odnoklassniki
+[![Build Status](https://secure.travis-ci.org/gazay/odnoklassniki)](http://travis-ci.org/gazay/odnoklassniki) [![CodeClimate](https://codeclimate.com/github/gazay/odnoklassniki)](https://codeclimate.com/github/gazay/odnoklassniki)
+
 Ruby wrapper for Odnoklassniki API
 
 If I finish it, you'll got:
