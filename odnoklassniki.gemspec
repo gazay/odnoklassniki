@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ['alex.gaziev@gmail.com']
   s.homepage    = 'https://github.com/gazay/odnoklassniki'
   s.summary     = %q{Ruby wrapper for Odnoklassniki API}
-  s.description = %q{Ruby wrapper for Odnoklassniki API}
+  s.description = %q{Ruby wrapper for REST Odnoklassniki API calls. GET and POST calls.}
 
   s.rubyforge_project = 'odnoklassniki'
 
