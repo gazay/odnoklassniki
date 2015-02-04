@@ -8,5 +8,5 @@ rvm:
   - rbx
 matrix:
   allow_failures:
-    - jvm: jruby-19mode
+    - rvm: jruby-19mode
     - rvm: rbx
