@@ -12,40 +12,30 @@ module Odnoklassniki
       @application_key = credentials[:application_key]
     end
 
-    # Perform a get request and return the raw response
-    def get_response(path, params = {})
-      connection.get do |req|
-        req.url path
-        req.params = params
-      end
-    end
-
-    # get a redirect url
-    def get_redirect_url(path, params = {})
-      response = get_response path, params
-      if response.status == 301
-        response.headers['Location']
-      else
-        response.body['meta']
-      end
-    end
-
     # Performs a get request
     def get(path, params={})
-      respond get_response(path, signed(params))
+      respond perform_request(:get, path, params)
     end
 
     # Performs post request
     def post(path, params={})
-      response = connection.post do |req|
-        req.url path
-        req.body = signed(params) unless params.empty?
-      end
-      #Check for errors and encapsulate
-      respond(response)
+      respond perform_request(:post, path, params)
     end
 
     private
+
+    def perform_request(method, path, params)
+      signed_params = signed params
+
+      connection.send(method) do |req|
+        req.url path
+        if method == :get
+          req.params = signed_params
+        else
+          req.body = signed_params unless params.empty?
+        end
+      end
+    end
 
     def respond(response)
       parsed_body = \
