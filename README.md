@@ -1,11 +1,15 @@
 # Odnoklassniki
 [![Build Status](https://travis-ci.org/gazay/odnoklassniki.svg)](http://travis-ci.org/gazay/odnoklassniki) [![CodeClimate](https://d3s6mut3hikguw.cloudfront.net/github/gazay/odnoklassniki/badges/gpa.svg)](https://codeclimate.com/github/gazay/odnoklassniki)
 
-Ruby wrapper for Odnoklassniki API
+**Odnoklassniki** is a Ruby wrapper for the [Odnoklassniki social network API](http://apiok.ru/).
 
-Right now it is a simple wrapper on get and post requests to Odnoklassniki API.
+At the moment, it is just a simple wrapper for GET and POST requests for Odnoklassniki API.
 
-This gem widely used in [Amplifr](https://amplifr.com) and currently being developed
+This gem is widely used by [Amplifr](https://amplifr.com/?utm_source=odnoklassniki-gem) social media management tool and is currently under development.
+
+<a href="https://amplifr.com/?utm_source=odnoklassniki-gem">
+<img src="https://amplifr.com/logo.png" alt="Amplifr" width="162" height="34">
+</a>
 
 <a href="https://evilmartians.com/?utm_source=odnoklassniki-gem">
 <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54">
@@ -13,17 +17,27 @@ This gem widely used in [Amplifr](https://amplifr.com) and currently being devel
 
 ## Installation
 
+You can install the gem via RubyGems:
+
 ```
-    gem install odnoklassniki
+gem install odnoklassniki
 ```
+
+Or by using Bundler: put
+
+```ruby
+gem 'odnoklassniki'
+```
+
+in your `Gemfile`.
 
 ## Usage
 
-To use Odnoklassniki API methods you should have [VALUABLE ACCESS](http://apiok.ru/wiki/display/api/Authorization+OAuth+2.0) to Odnoklassniki.
+To use Odnoklassniki API methods you should have "[VALUABLE ACCESS](http://apiok.ru/wiki/display/api/Authorization+OAuth+2.0)" to Odnoklassniki.
 
 ### Configuration
 
-You can create global configuration for your application. Create initializer `config/initializers/ok_api.rb`:
+When using the gem with a Ruby on Rails application, you can configure Odnoklassniki globally by creating an initializer: `config/initializers/ok_api.rb`
 
 ```ruby
 Odnoklassniki.configure do |c|
@@ -33,17 +47,17 @@ Odnoklassniki.configure do |c|
 end
 ```
 
-Or you can create config object and feed it to `Odnoklassniki` module:
+Or you can create a `Config` object and feed it to the `Odnoklassniki` module:
 
 ```ruby
 config = Odnoklassniki::Config.configure do |c|
-  ...
+  # ...
 end
 
 Odnoklassniki.config = config
 ```
 
-Also, when you create new `Odnoklassniki::Client` you can pass all needed (or missed on configuration step) options right there:
+Also, when creating a new `Odnoklassniki::Client`, you can pass along all required (or missing from the configuration step) options right there:
 
 ```ruby
 Odnoklassniki::Client.new(access_token: 'your token', client_id: 'your client id')
@@ -54,8 +68,8 @@ Odnoklassniki::Client.new(access_token: 'your token', client_id: 'your client id
 ```ruby
 client = Odnoklassniki::Client.new(access_token: token)
 
-new_token = client.refresh_token! # This method will be called automaticaly just once
-                                  # for each client before performing request
+new_token = client.refresh_token! # This method will be called automatically just once
+                                  # for each client before performing the request
 
 client.get('friends.get')
 client.get('friends/get')
@@ -66,10 +80,10 @@ client.get('/api/friends/get')
 client.post('mediatopic.post', type: 'USER_STATUS', attachment: attachment)
 ```
 
-### Error handling
+### Error Handling
 
-Most of errors from Odnoklassniki API retruned in success response (with status code 200).
-So there is a wrapper for it in this gem:
+Unfortunately, most errors from Odnoklassniki API are returned within a _success_ response (200 HTTP status code).
+So, there is a wrapper that in this gem:
 
 ```ruby
 begin
@@ -79,9 +93,9 @@ rescue Odnoklassniki::Error::ClientError => e
 end
 ```
 
-Also there are bunch of client/server error classes which structure was gratefully copied and adopted from
+Also there is a bunch of client/server error classes whos structure was gratefully copied and adopted from
 [@sferik](https://github.com/sferik)'s [twitter](https://github.com/sferik/twitter) gem.
-They can be useful when Odnoklassniki API wasn't reached or when some other issue occured.
+They can be useful when Odnoklassniki API wasn't reached at all or when some other issue occured.
 
 ## TODO
 
@@ -100,7 +114,7 @@ They can be useful when Odnoklassniki API wasn't reached or when some other issu
 
 * @gazay
 
-Special thanks to @Strech, @igas.
+Special thanks to @strech, @igas.
 
 ## License
 
