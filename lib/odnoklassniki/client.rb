@@ -12,13 +12,11 @@ module Odnoklassniki
     end
 
     def get(method, params={})
-      method, params = fallback(method) if method.is_a?(Hash)
-      request.get(method_path(method), params)
+      request_method(:get, method, params)
     end
 
     def post(method, params={})
-      method, params = fallback(method) if method.is_a?(Hash)
-      request.post(method_path(method), params)
+      request_method(:post, method, params)
     end
 
     def refresh_token!
@@ -53,6 +51,11 @@ module Odnoklassniki
         client_id:     @client_id,
         client_secret: @client_secret
       }
+    end
+
+    def request_method(http_method, method, params)
+      method, params = fallback(method) if method.is_a?(Hash)
+      request.send(http_method, method_path(method), params)
     end
 
     def request
