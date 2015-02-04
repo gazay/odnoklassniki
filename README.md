@@ -3,7 +3,7 @@
 
 Ruby wrapper for Odnoklassniki API
 
-Right now it is a simple wrapper on get and post requests to Odnoklassniki api.
+Right now it is a simple wrapper on get and post requests to Odnoklassniki API.
 
 This gem widely used in [Amplifr](https://amplifr.com) and currently being developed
 
@@ -19,7 +19,7 @@ This gem widely used in [Amplifr](https://amplifr.com) and currently being devel
 
 ## Usage
 
-To use odnoklassniki api methods you should have [VALUABLE ACCESS](http://dev.odnoklassniki.ru/wiki/pages/viewpage.action?pageId=12878032) to odnoklassniki.
+To use Odnoklassniki API methods you should have [VALUABLE ACCESS](http://apiok.ru/wiki/display/api/Authorization+OAuth+2.0) to Odnoklassniki.
 
 ### Configuration
 
