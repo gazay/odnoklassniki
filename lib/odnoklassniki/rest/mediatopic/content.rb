@@ -9,6 +9,10 @@ module Odnoklassniki
         LINK_TYPE = 'link'.freeze
         PHOTO_TYPE = 'photo'.freeze
 
+        # Params:
+        # text: string with message to OK (default: '')
+        # images: Array of IO             (default: [])
+        # account_type: :group/:personal  (default: :personal)
         def initialize(params={})
           @params = _symbolize_kyes(params)
         end
@@ -21,27 +25,25 @@ module Odnoklassniki
         end
 
         def link
-          @link ||= begin
-            url = external_url
-            url.blank? ? nil : {type: LINK_TYPE, url: external_url}
-          end
+          @link ||= \
+            external_url.blank? ? nil : {type: LINK_TYPE, url: external_url}
         end
 
         def images
-          @images ||= [resource_images].compact
+          @images ||= [uploaded_images].compact
         end
 
         private
 
         def image_id_key
-          @image_id_key ||= account.personal_id.present? ? :photoId : :id
+          @image_id_key ||= params[:account_type] == :group ? :id : :photoId
         end
 
-        def resource_images
-          return if resource.try(:images).blank?
+        def uploaded_images
+          return if params[:images].blank?
 
-          photos = resource.images.map do |photo|
-            {image_id_key => photoalbum.upload(photo.image)}
+          photos = params[:images].map do |photo|
+            {image_id_key => photoalbum.upload(photo)}
           end
 
           {type: PHOTO_TYPE, list: photos}
@@ -69,11 +71,6 @@ module Odnoklassniki
 
         def embedable_url?(url)
           url =~ EMBEDABLE_LINK_PATTERN
-        end
-
-        def shorten_links?
-          account.project.count_click_rate? &&
-            !has_single_embedable_link?
         end
 
         def external_url
