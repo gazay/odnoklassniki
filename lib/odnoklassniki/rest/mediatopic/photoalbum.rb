@@ -84,7 +84,7 @@ module Odnoklassniki
           return photoalbum['aid'] if photoalbum.present?
 
           params = {method: CREATE_ALBUM_METHOD}.merge!(ALBUM_CREATION_OPTIONS)
-          params.merge!(gid: @account[:id] if @account[:type] == :group
+          params.merge!(gid: @account[:id]) if @account[:type] == :group
 
           @api.get(params)
         rescue API::Error
@@ -94,18 +94,18 @@ module Odnoklassniki
         def photoalbum_upload_url
           params = {method: GET_ALBUM_UPLOAD_URL_METHOD}
 
-          if @account.group?
-            params.merge!(gid: @account.group_id)
+          if @account[:type] == :group
+            params.merge!(gid: @account[:id])
           else
             params.merge!(aid: create_photoalbum)
           end
 
-          @api.api(:get, params) { |json| URI.parse json['upload_url'] }
+          @api.get(params) { |json| URI.parse json['upload_url'] }
         end
 
         def commit_uploaded_photo(photo_id, photo_token)
           params = {method: COMMIT_PHOTO_METHOD, photo_id: photo_id, token: photo_token}
-          @api.api(:get, params) do |commit_response|
+          @api.get(params) do |commit_response|
             commit_response['photos'][0]['assigned_photo_id']
           end
         end

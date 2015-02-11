@@ -11,12 +11,12 @@ module Odnoklassniki
       @refreshed = false
     end
 
-    def get(method, params={})
-      request_method(:get, method, params)
+    def get(method, params={}, &block)
+      request_method(:get, method, params, block)
     end
 
-    def post(method, params={})
-      request_method(:post, method, params)
+    def post(method, params={}, &block)
+      request_method(:post, method, params, block)
     end
 
     def refresh_token!
@@ -53,9 +53,11 @@ module Odnoklassniki
       }
     end
 
-    def request_method(http_method, method, params)
+    def request_method(http_method, method, params, block)
       method, params = fallback(method) if method.is_a?(Hash)
-      request.send(http_method, method_path(method), params)
+      response = request.send(http_method, method_path(method), params)
+      response = block.call response if block
+      response
     end
 
     def request
