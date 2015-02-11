@@ -2,10 +2,10 @@ module Odnoklassniki
   module REST
     class Mediatopic
 
-      attr_accessor :params
+      attr_accessor :client
 
-      def initialize(params={})
-        @params = params
+      def initialize(client)
+        @client = client
       end
 
     end
