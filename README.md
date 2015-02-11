@@ -114,8 +114,8 @@ They can be useful in case when Odnoklassniki API wasn't reached at all or when 
 
 * @gazay
 
-Special thanks to @strech, @igas.
+Special thanks to [@strech](https://github.com/strech), [@igas](https://github.com/igas).
 
 ## License
 
-The MIT License
+[The MIT License](https://github.com/gazay/odnoklassniki/blob/master/LICENSE)
