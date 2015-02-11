@@ -23,14 +23,14 @@ module Odnoklassniki
 
         attr_accessor :params
 
-        # Params:
+        # Options:
         # account: { id:   Identifier for account in OK,
         #            type: :group/:personal }
         # client: Client for specified account
-        def initialize(params)
-          @params = Odnoklassniki::Utils._symbolize_keys(params)
-          @account = @params[:account]
-          @api = @params[:client]
+        def initialize(options)
+          @options = Odnoklassniki::Utils._symbolize_keys(options)
+          @account = @options[:account]
+          @api = @options[:client]
         end
 
         def upload(photo)
@@ -84,9 +84,9 @@ module Odnoklassniki
           return photoalbum['aid'] if photoalbum.present?
 
           params = {method: CREATE_ALBUM_METHOD}.merge!(ALBUM_CREATION_OPTIONS)
-          params.merge!(gid: @account.group_id) if @account.group?
+          params.merge!(gid: @account[:id] if @account[:type] == :group
 
-          @api.api(:get, params)
+          @api.get(params)
         rescue API::Error
           raise CreationError
         end

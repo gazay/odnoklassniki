@@ -9,14 +9,14 @@ module Odnoklassniki
         LINK_TYPE = 'link'.freeze
         PHOTO_TYPE = 'photo'.freeze
 
-        attr_accessor :params
+        attr_accessor :options
 
-        # Params:
+        # Options:
         # text: string with message to OK (default: '')
         # images: Array of File           (default: [])
         # account_type: :group/:personal  (default: :personal)
-        def initialize(params={})
-          @params = Odnoklassniki::Utils._symbolize_kyes(params)
+        def initialize(options={})
+          @options = Odnoklassniki::Utils._symbolize_kyes(options)
         end
 
         def message
@@ -38,13 +38,13 @@ module Odnoklassniki
         private
 
         def image_id_key
-          @image_id_key ||= params[:account_type] == :group ? :id : :photoId
+          @image_id_key ||= options[:account_type] == :group ? :id : :photoId
         end
 
         def uploaded_images
-          return if params[:images].blank?
+          return if options[:images].blank?
 
-          photos = params[:images].map do |photo|
+          photos = options[:images].map do |photo|
             {image_id_key => photoalbum.upload(photo)}
           end
 
@@ -64,7 +64,7 @@ module Odnoklassniki
         end
 
         def text
-          @text ||= params[:text]
+          @text ||= options[:text]
         end
 
         def urls
