@@ -9,12 +9,14 @@ module Odnoklassniki
         LINK_TYPE = 'link'.freeze
         PHOTO_TYPE = 'photo'.freeze
 
+        attr_accessor :params
+
         # Params:
         # text: string with message to OK (default: '')
-        # images: Array of IO             (default: [])
+        # images: Array of File           (default: [])
         # account_type: :group/:personal  (default: :personal)
         def initialize(params={})
-          @params = _symbolize_kyes(params)
+          @params = Odnoklassniki::Utils._symbolize_kyes(params)
         end
 
         def message

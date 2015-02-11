@@ -4,26 +4,33 @@ require 'http_uploader'
 
 require_relative '../odnoklassniki'
 
-module Social
-  module Content
-    class Odnoklassniki
+module Odnoklassniki
+  module REST
+    class Mediatopic
       class Photoalbum
 
-        GET_ALBUMS_METHOD = 'photos.getAlbums'.freeze
-        CREATE_ALBUM_METHOD = 'photos.createAlbum'.freeze
-        GET_ALBUM_UPLOAD_URL_METHOD = 'photosV2.getUploadUrl'.freeze
-        COMMIT_PHOTO_METHOD = 'photosV2.commit'.freeze
+        GET_ALBUMS_METHOD = 'photos.getAlbums'
+        CREATE_ALBUM_METHOD = 'photos.createAlbum'
+        GET_ALBUM_UPLOAD_URL_METHOD = 'photosV2.getUploadUrl'
+        COMMIT_PHOTO_METHOD = 'photosV2.commit'
 
-        ALBUM_NAME = 'amplifr'.freeze
+        ALBUM_NAME = 'apiok'
         ALBUM_CREATION_OPTIONS = {
           title: ALBUM_NAME,
-          description: 'Album for uploads from amplifr app'.freeze,
-          type: 'public'.freeze
-        }.freeze
+          description: 'Album for uploads from odnoklassniki api gem',
+          type: 'public'
+        }
 
-        def initialize(account)
-          @account = account
-          @api = API::Odnoklassniki.new(account)
+        attr_accessor :params
+
+        # Params:
+        # account: { id:   Identifier for account in OK,
+        #            type: :group/:personal }
+        # client: Client for specified account
+        def initialize(params)
+          @params = Odnoklassniki::Utils._symbolize_keys(params)
+          @account = @params[:account]
+          @api = @params[:client]
         end
 
         def upload(photo)
@@ -54,7 +61,7 @@ module Social
             raise UploadingError, "Broken upload response. Response: #{upload_response.body}"
           end
 
-          if @account.personal?
+          if @account[:type] == :personal
             commit_uploaded_photo(photo_id, photo_attributes['token'])
           else
             photo_attributes['token']
@@ -64,9 +71,9 @@ module Social
         def photoalbum
           @photoalbum ||= begin
             params = {method: GET_ALBUMS_METHOD}
-            params.merge!(gid: @account.group_id) if @account.group?
+            params.merge!(gid: @account[:id]) if @account[:type] == :group
 
-            @api.api(:get, params).try(:[], 'albums').to_a
+            @api.get(params).try(:[], 'albums').to_a
               .find { |album| album['title'] == ALBUM_NAME }
           rescue API::Error
             raise FindingError
