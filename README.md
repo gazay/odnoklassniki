@@ -8,7 +8,7 @@ At the moment, it is just a simple wrapper for GET and POST requests for Odnokla
 This gem is widely used by [Amplifr](https://amplifr.com/?utm_source=odnoklassniki-gem) social media management tool and is currently under development.
 
 <a href="https://amplifr.com/?utm_source=odnoklassniki-gem">
-<img src="https://amplifr.com/logo.png" alt="Amplifr" width="162" height="34">
+<img src="https://amplifr.com/logo.png" alt="Amplifr" width="34" height="162">
 </a>
 
 <a href="https://evilmartians.com/?utm_source=odnoklassniki-gem">
